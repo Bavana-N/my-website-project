@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Contact | Student Portal</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', system-ui, 'Segoe UI', 'Inter', sans-serif;
+    }
+
+    body {
+      background: linear-gradient(145deg, #eef2f7 0%, #dce3ec 100%);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      position: relative;
+    }
+
+    /* Navigation Bar - consistent with other pages */
+    nav {
+      background: #0f172ad9;
+      backdrop-filter: blur(12px);
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 20px;
+      padding: 12px 28px;
+      border-radius: 80px;
+      margin-bottom: 40px;
+      box-shadow: 0 12px 25px rgba(0,0,0,0.2);
+      position: sticky;
+      top: 20px;
+      z-index: 100;
+      width: fit-content;
+      max-width: 90%;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    nav a {
+      color: #f1f5f9;
+      text-decoration: none;
+      font-weight: 500;
+      padding: 6px 18px;
+      border-radius: 40px;
+      transition: all 0.2s ease;
+      font-size: 0.95rem;
+    }
+
+    nav a:hover {
+      background: #f97316;
+      color: #0f172a;
+      transform: scale(1.02);
+    }
+
+    /* Main container */
+    .container {
+      background: rgba(255, 255, 255, 0.94);
+      backdrop-filter: blur(4px);
+      max-width: 900px;
+      width: 100%;
+      margin: 10px auto;
+      padding: 40px 36px 50px;
+      border-radius: 64px 36px 64px 36px;
+      text-align: center;
+      box-shadow: 0 30px 45px rgba(0, 0, 0, 0.2);
+      transition: transform 0.25s;
+      border: 1px solid rgba(139, 92, 246, 0.3);
+    }
+
+    .container:hover {
+      transform: translateY(-5px);
+    }
+
+    /* Icon */
+    .contact-icon {
+      width: 85px;
+      margin-bottom: 12px;
+      filter: drop-shadow(0 8px 12px rgba(0,0,0,0.15));
+    }
+
+    h2 {
+      font-size: 2.4rem;
+      background: linear-gradient(125deg, #0f2b3d, #8b5cf6);
+      background-clip: text;
+      -webkit-background-clip: text;
+      color: transparent;
+      margin-bottom: 12px;
+      font-weight: 800;
+    }
+
+    .sub-text {
+      font-size: 0.95rem;
+      color: #475569;
+      margin-bottom: 32px;
+      background: #f1f5f9;
+      display: inline-block;
+      padding: 6px 24px;
+      border-radius: 60px;
+    }
+
+    /* Two column layout */
+    .contact-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 32px;
+      margin-top: 20px;
+      text-align: left;
+    }
+
+    .contact-info {
+      flex: 1;
+      min-width: 220px;
+      background: #f8fafc;
+      border-radius: 36px;
+      padding: 28px 24px;
+    }
+
+    .contact-form {
+      flex: 1.5;
+      min-width: 260px;
+      background: #ffffff;
+      border-radius: 36px;
+      padding: 28px 24px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.05);
+    }
+
+    .info-item {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      margin-bottom: 28px;
+      padding: 12px;
+      background: white;
+      border-radius: 28px;
+      transition: 0.2s;
+    }
+
+    .info-item:hover {
+      transform: translateX(6px);
+      background: #fef9e6;
+    }
+
+    .info-icon {
+      font-size: 2rem;
+    }
+
+    .info-item h4 {
+      color: #0f172a;
+      margin-bottom: 4px;
+      font-size: 1.1rem;
+    }
+
+    .info-item p {
+      color: #475569;
+      font-size: 0.9rem;
+      word-break: break-word;
+    }
+
+    /* Form styling */
+    .form-group {
+      margin-bottom: 18px;
+    }
+
+    input, textarea {
+      width: 100%;
+      padding: 12px 18px;
+      border: 1.5px solid #e2e8f0;
+      border-radius: 40px;
+      font-size: 0.95rem;
+      transition: 0.2s;
+      outline: none;
+      font-family: inherit;
+    }
+
+    textarea {
+      border-radius: 28px;
+      resize: vertical;
+      min-height: 100px;
+    }
+
+    input:focus, textarea:focus {
+      border-color: #8b5cf6;
+      box-shadow: 0 0 0 3px rgba(139,92,246,0.2);
+    }
+
+    button {
+      background: linear-gradient(95deg, #1e2b3c, #0f2b3d);
+      border: none;
+      padding: 12px 28px;
+      font-size: 1rem;
+      font-weight: 600;
+      border-radius: 60px;
+      color: white;
+      cursor: pointer;
+      transition: 0.25s;
+      width: 100%;
+      margin-top: 8px;
+    }
+
+    button:hover {
+      background: linear-gradient(95deg, #8b5cf6, #6d28d9);
+      transform: scale(1.01);
+      box-shadow: 0 8px 18px rgba(139,92,246,0.3);
+    }
+
+    .message-feedback {
+      margin-top: 16px;
+      font-size: 0.85rem;
+      padding: 10px;
+      border-radius: 60px;
+      text-align: center;
+    }
+
+    .error-msg {
+      background: #fee2e2;
+      color: #b91c1c;
+    }
+
+    .success-msg {
+      background: #dcfce7;
+      color: #166534;
+    }
+
+    hr {
+      margin: 20px 0;
+      border: 1px dashed #cbd5e1;
+    }
+
+    .social-links {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      margin-top: 20px;
+      flex-wrap: wrap;
+    }
+
+    .social-links a {
+      text-decoration: none;
+      background: #f1f5f9;
+      padding: 8px 18px;
+      border-radius: 40px;
+      color: #1e293b;
+      font-weight: 500;
+      transition: 0.2s;
+    }
+
+    .social-links a:hover {
+      background: #8b5cf6;
+      color: white;
+    }
+
+    @media (max-width: 700px) {
+      .container {
+        padding: 32px 20px;
+      }
+      h2 {
+        font-size: 1.8rem;
+      }
+      .contact-grid {
+        flex-direction: column;
+      }
+      nav a {
+        padding: 4px 12px;
+        font-size: 0.8rem;
+      }
+    }
+
+    /* background decoration */
+    .bg-circle {
+      position: fixed;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(139,92,246,0.07), transparent);
+      z-index: -1;
+      pointer-events: none;
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html">🏠 Home</a>
+  <a href="login.html">🔐 Login</a>
+  <a href="register.html">📝 Register</a>
+  <a href="dashboard.html">📊 Dashboard</a>
+  <a href="about.html">ℹ️ About</a>
+  <a href="contact.html">📞 Contact</a>
+</nav>
+
+<div class="container">
+  <img class="contact-icon" 
+       src="https://cdn-icons-png.flaticon.com/512/3095/3095584.png" 
+       alt="Contact Icon"
+       width="80">
+  <h2>📬 Get in Touch</h2>
+  <div class="sub-text">We'd love to hear from you ✨</div>
+
+  <div class="contact-grid">
+    <!-- Left: Contact Info -->
+    <div class="contact-info">
+      <div class="info-item">
+        <div class="info-icon">📧</div>
+        <div>
+          <h4>Email Us</h4>
+          <p>studentportal@gmail.com</p>
+          <p style="font-size:12px;">support@studentportal.com</p>
+        </div>
+      </div>
+      <div class="info-item">
+        <div class="info-icon">📞</div>
+        <div>
+          <h4>Call / WhatsApp</h4>
+          <p>+91 98765 43210</p>
+          <p style="font-size:12px;">Mon-Fri, 9AM - 6PM</p>
+        </div>
+      </div>
+      <div class="info-item">
+        <div class="info-icon">📍</div>
+        <div>
+          <h4>Visit Us</h4>
+          <p>Agile Learning Hub, Bangalore, India</p>
+        </div>
+      </div>
+      <hr>
+      <div class="social-links">
+        <a href="#">🔗 LinkedIn</a>
+        <a href="#">📘 Instagram</a>
+        <a href="#">🐦 Twitter</a>
+      </div>
+    </div>
+
+    <!-- Right: Contact Form -->
+    <div class="contact-form">
+      <h3 style="margin-bottom: 20px; color:#0f172a;">Send a Message</h3>
+      <form id="contactForm">
+        <div class="form-group">
+          <input type="text" id="contactName" placeholder="Your Full Name" required>
+        </div>
+        <div class="form-group">
+          <input type="email" id="contactEmail" placeholder="Your Email Address" required>
+        </div>
+        <div class="form-group">
+          <input type="text" id="contactSubject" placeholder="Subject (e.g., Assignment Help)">
+        </div>
+        <div class="form-group">
+          <textarea id="contactMessage" placeholder="Write your message here..."></textarea>
+        </div>
+        <button type="button" onclick="sendMessage()">📨 Send Message</button>
+        <div id="formFeedback" class="message-feedback"></div>
+      </form>
+      <p style="font-size:12px; margin-top: 16px; opacity:0.6;">⚡ We usually reply within 24 hours.</p>
+    </div>
+  </div>
+</div>
+
+<!-- Background decorations -->
+<div class="bg-circle" style="width: 260px; height: 260px; top: -50px; right: -40px;"></div>
+<div class="bg-circle" style="width: 200px; height: 200px; bottom: -30px; left: -50px;"></div>
+
+<script>
+  function sendMessage() {
+    let name = document.getElementById('contactName').value.trim();
+    let email = document.getElementById('contactEmail').value.trim();
+    let subject = document.getElementById('contactSubject').value.trim();
+    let message = document.getElementById('contactMessage').value.trim();
+    let feedbackDiv = document.getElementById('formFeedback');
+
+    // Basic validation
+    if (name === "" || email === "" || message === "") {
+      feedbackDiv.innerHTML = "⚠️ Please fill in your name, email, and message.";
+      feedbackDiv.className = "message-feedback error-msg";
+      return;
+    }
+
+    // Email format check
+    const emailPattern = /^[^\s@]+@([^\s@]+\.)+[^\s@]+$/;
+    if (!emailPattern.test(email)) {
+      feedbackDiv.innerHTML = "❌ Please enter a valid email address.";
+      feedbackDiv.className = "message-feedback error-msg";
+      return;
+    }
+
+    // Simulate successful message sending
+    feedbackDiv.innerHTML = "✅ Thank you " + name + "! Your message has been sent. We'll get back to you soon.";
+    feedbackDiv.className = "message-feedback success-msg";
+
+    // Clear form fields after 0.5 sec
+    setTimeout(() => {
+      document.getElementById('contactName').value = "";
+      document.getElementById('contactEmail').value = "";
+      document.getElementById('contactSubject').value = "";
+      document.getElementById('contactMessage').value = "";
+      // keep feedback visible but reset after 3 seconds? optional
+      setTimeout(() => {
+        if (feedbackDiv.innerHTML.includes("Thank you")) {
+          feedbackDiv.innerHTML = "";
+          feedbackDiv.className = "message-feedback";
+        }
+      }, 3000);
+    }, 800);
+  }
+</script>
+
+</body>
+</html>

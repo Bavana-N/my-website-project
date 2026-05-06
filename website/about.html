@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>About | Student Portal</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', system-ui, 'Segoe UI', 'Inter', sans-serif;
+    }
+
+    body {
+      background: linear-gradient(145deg, #e8edf5 0%, #d1dbe8 100%);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      position: relative;
+    }
+
+    /* Navigation Bar */
+    nav {
+      background: #0f172ad9;
+      backdrop-filter: blur(12px);
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 20px;
+      padding: 12px 28px;
+      border-radius: 80px;
+      margin-bottom: 40px;
+      box-shadow: 0 12px 25px rgba(0,0,0,0.2);
+      position: sticky;
+      top: 20px;
+      z-index: 100;
+      width: fit-content;
+      max-width: 90%;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    nav a {
+      color: #f1f5f9;
+      text-decoration: none;
+      font-weight: 500;
+      padding: 6px 18px;
+      border-radius: 40px;
+      transition: all 0.2s ease;
+      font-size: 0.95rem;
+    }
+
+    nav a:hover {
+      background: #f97316;
+      color: #0f172a;
+      transform: scale(1.02);
+    }
+
+    /* Main container */
+    .container {
+      background: rgba(255, 255, 255, 0.94);
+      backdrop-filter: blur(4px);
+      max-width: 1000px;
+      width: 100%;
+      margin: 10px auto;
+      padding: 40px 36px 50px;
+      border-radius: 64px 36px 64px 36px;
+      text-align: center;
+      box-shadow: 0 30px 45px rgba(0, 0, 0, 0.2);
+      transition: transform 0.25s;
+      border: 1px solid rgba(59,130,246,0.3);
+    }
+
+    .container:hover {
+      transform: translateY(-5px);
+    }
+
+    /* Icon styling */
+    .about-icon {
+      width: 95px;
+      margin-bottom: 12px;
+      filter: drop-shadow(0 8px 12px rgba(0,0,0,0.15));
+      transition: 0.2s;
+    }
+
+    .about-icon:hover {
+      transform: scale(1.02) rotate(2deg);
+    }
+
+    h2 {
+      font-size: 2.4rem;
+      background: linear-gradient(125deg, #0f2b3d, #3b82f6);
+      background-clip: text;
+      -webkit-background-clip: text;
+      color: transparent;
+      margin-bottom: 16px;
+      font-weight: 800;
+      letter-spacing: -0.3px;
+    }
+
+    .intro-text {
+      font-size: 1rem;
+      line-height: 1.6;
+      color: #1e293b;
+      max-width: 700px;
+      margin: 0 auto 20px auto;
+      background: #f8fafc;
+      padding: 14px 24px;
+      border-radius: 60px;
+      opacity: 0.9;
+    }
+
+    /* Cards grid */
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 28px;
+      margin-top: 30px;
+    }
+
+    .card {
+      background: linear-gradient(135deg, #ffffff, #fef9f0);
+      border-radius: 32px;
+      padding: 28px 20px;
+      text-align: center;
+      transition: all 0.25s ease;
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08);
+      border: 1px solid rgba(249,115,22,0.2);
+      cursor: default;
+    }
+
+    .card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 20px 30px rgba(0, 0, 0, 0.12);
+      border-color: #f97316;
+    }
+
+    .card h3 {
+      font-size: 1.6rem;
+      margin-bottom: 16px;
+      color: #0c4a6e;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+    }
+
+    .card p {
+      color: #2d3e50;
+      font-size: 0.95rem;
+      line-height: 1.5;
+    }
+
+    /* Special highlight for agile methodology */
+    .methodology-badge {
+      display: inline-block;
+      background: #e6f7ec;
+      border-radius: 40px;
+      padding: 4px 12px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: #10b981;
+      margin-top: 12px;
+    }
+
+    /* Responsive */
+    @media (max-width: 700px) {
+      .container {
+        padding: 32px 20px;
+      }
+      h2 {
+        font-size: 1.8rem;
+      }
+      .cards-grid {
+        gap: 18px;
+      }
+      .card h3 {
+        font-size: 1.3rem;
+      }
+      nav a {
+        padding: 4px 12px;
+        font-size: 0.8rem;
+      }
+    }
+
+    /* Floating background shapes */
+    .bg-shape {
+      position: fixed;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(59,130,246,0.08), transparent);
+      z-index: -1;
+      pointer-events: none;
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html">🏠 Home</a>
+  <a href="login.html">🔐 Login</a>
+  <a href="register.html">📝 Register</a>
+  <a href="dashboard.html">📊 Dashboard</a>
+  <a href="about.html">ℹ️ About</a>
+  <a href="contact.html">📞 Contact</a>
+</nav>
+
+<div class="container">
+  <!-- About Icon -->
+  <img class="about-icon" 
+       src="https://cdn-icons-png.flaticon.com/512/4140/4140048.png" 
+       alt="About Icon"
+       width="90">
+
+  <h2>ℹ️ About This Project</h2>
+  
+  <div class="intro-text">
+    The Student Portal is a modern web application designed to help students 
+    manage their academic activities efficiently. It provides a centralized 
+    platform to track courses, assignments, and overall progress.
+  </div>
+
+  <div class="cards-grid">
+    <div class="card">
+      <h3>⚙️ Technologies</h3>
+      <p>HTML5, CSS3, JavaScript (ES6) for frontend development. Responsive design with modern UI/UX principles.</p>
+      <span class="methodology-badge">✨ Pure frontend</span>
+    </div>
+
+    <div class="card">
+      <h3>🚀 Methodology</h3>
+      <p>Agile methodology was followed by dividing the project into smaller modules — sprints, daily standups, and iterative feedback.</p>
+      <span class="methodology-badge">📌 Scrum framework</span>
+    </div>
+
+    <div class="card">
+      <h3>🔄 CI/CD Process</h3>
+      <p>Integrated with GitHub for version control and Jenkins for automation (simulated pipeline). Ensures continuous delivery.</p>
+      <span class="methodology-badge">⚡ DevOps ready</span>
+    </div>
+
+    <div class="card">
+      <h3>🎯 Objective</h3>
+      <p>To create a simple, user-friendly system for managing student activities with a focus on agile learning and progress tracking.</p>
+      <span class="methodology-badge">🎓 Student-first</span>
+    </div>
+  </div>
+
+  <!-- Additional Agile Insight -->
+  <div style="margin-top: 36px; padding: 16px; background: #f1f5f9; border-radius: 48px; font-size: 0.85rem; color: #2c3e66;">
+    💡 <strong>Built with Agile Mindset</strong> — Each feature (Login, Register, Dashboard, Progress Charts) was delivered in iterative cycles, ensuring quick feedback and continuous improvement.
+  </div>
+</div>
+
+<!-- Background decorations -->
+<div class="bg-shape" style="width: 280px; height: 280px; top: -50px; left: -80px;"></div>
+<div class="bg-shape" style="width: 220px; height: 220px; bottom: -30px; right: -60px;"></div>
+
+</body>
+</html>

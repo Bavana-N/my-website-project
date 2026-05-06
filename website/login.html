@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Login | Student Portal</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', system-ui, 'Segoe UI', 'Inter', sans-serif;
+    }
+
+    body {
+      background: linear-gradient(145deg, #e2e8f0 0%, #cbd5e6 100%);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      position: relative;
+    }
+
+    /* Navigation Bar */
+    nav {
+      background: #0f172ad9;
+      backdrop-filter: blur(12px);
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 20px;
+      padding: 12px 28px;
+      border-radius: 80px;
+      margin-bottom: 40px;
+      box-shadow: 0 12px 25px rgba(0,0,0,0.2);
+      position: sticky;
+      top: 20px;
+      z-index: 100;
+      width: fit-content;
+      max-width: 90%;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    nav a {
+      color: #f1f5f9;
+      text-decoration: none;
+      font-weight: 500;
+      padding: 6px 18px;
+      border-radius: 40px;
+      transition: all 0.2s ease;
+      font-size: 0.95rem;
+    }
+
+    nav a:hover {
+      background: #f97316;
+      color: #0f172a;
+      transform: scale(1.02);
+    }
+
+    /* Main container */
+    .container {
+      background: rgba(255, 255, 255, 0.94);
+      backdrop-filter: blur(4px);
+      max-width: 500px;
+      width: 100%;
+      margin: 10px auto;
+      padding: 40px 32px 48px;
+      border-radius: 64px 36px 64px 36px;
+      text-align: center;
+      box-shadow: 0 30px 45px rgba(0, 0, 0, 0.2);
+      transition: transform 0.25s;
+      border: 1px solid rgba(249,115,22,0.3);
+    }
+
+    .container:hover {
+      transform: translateY(-5px);
+    }
+
+    /* Icon styling */
+    .login-icon {
+      width: 85px;
+      margin-bottom: 12px;
+      filter: drop-shadow(0 6px 10px rgba(0,0,0,0.15));
+    }
+
+    h2 {
+      font-size: 2.2rem;
+      background: linear-gradient(125deg, #0f2b3d, #f97316);
+      background-clip: text;
+      -webkit-background-clip: text;
+      color: transparent;
+      margin-bottom: 12px;
+      font-weight: 700;
+    }
+
+    .sub-text {
+      font-size: 0.9rem;
+      color: #2c3e66;
+      background: #fef3e2;
+      display: inline-block;
+      padding: 6px 20px;
+      border-radius: 50px;
+      margin-bottom: 20px;
+    }
+
+    /* Input fields */
+    input {
+      width: 85%;
+      padding: 14px 20px;
+      margin: 12px 0;
+      border: 1.5px solid #e2e8f0;
+      border-radius: 60px;
+      font-size: 1rem;
+      background: white;
+      transition: all 0.2s;
+      outline: none;
+      color: #1e293b;
+      font-weight: 500;
+    }
+
+    input:focus {
+      border-color: #f97316;
+      box-shadow: 0 0 0 3px rgba(249,115,22,0.2);
+      transform: scale(1.01);
+    }
+
+    /* Button */
+    button {
+      background: linear-gradient(95deg, #1e2b3c, #0f2b3d);
+      border: none;
+      padding: 12px 38px;
+      font-size: 1.1rem;
+      font-weight: 600;
+      border-radius: 60px;
+      color: white;
+      cursor: pointer;
+      transition: 0.25s;
+      box-shadow: 0 6px 14px rgba(0, 0, 0, 0.15);
+      margin-top: 12px;
+      width: 85%;
+      letter-spacing: 1px;
+    }
+
+    button:hover {
+      background: linear-gradient(95deg, #f97316, #f4a261);
+      transform: scale(1.02);
+      box-shadow: 0 10px 20px rgba(249,115,22,0.3);
+      color: #0f172a;
+    }
+
+    /* Register link */
+    .register-link {
+      margin-top: 28px;
+      font-size: 0.9rem;
+      color: #334155;
+    }
+
+    .register-link a {
+      color: #f97316;
+      text-decoration: none;
+      font-weight: 700;
+      border-bottom: 1px dashed #f97316;
+    }
+
+    .register-link a:hover {
+      color: #d45a0a;
+      border-bottom: 1px solid;
+    }
+
+    /* error / success message */
+    .message {
+      margin-top: 18px;
+      font-size: 0.85rem;
+      padding: 8px;
+      border-radius: 50px;
+      width: 85%;
+      margin-left: auto;
+      margin-right: auto;
+      transition: 0.2s;
+    }
+
+    .error-msg {
+      background: #fee2e2;
+      color: #b91c1c;
+      border-left: 4px solid #ef4444;
+    }
+
+    .success-msg {
+      background: #dcfce7;
+      color: #166534;
+      border-left: 4px solid #22c55e;
+    }
+
+    /* Responsive */
+    @media (max-width: 550px) {
+      .container {
+        padding: 32px 18px;
+      }
+      h2 {
+        font-size: 1.8rem;
+      }
+      input, button {
+        width: 92%;
+      }
+      nav a {
+        padding: 4px 12px;
+        font-size: 0.8rem;
+      }
+    }
+
+    /* Floating background decoration */
+    .bg-circle {
+      position: fixed;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(249,115,22,0.08), transparent);
+      z-index: -1;
+      pointer-events: none;
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html">🏠 Home</a>
+  <a href="login.html">🔐 Login</a>
+  <a href="register.html">📝 Register</a>
+  <a href="dashboard.html">📊 Dashboard</a>
+  <a href="about.html">ℹ️ About</a>
+  <a href="contact.html">📞 Contact</a>
+</nav>
+
+<div class="container">
+  <!-- Login Icon -->
+  <img class="login-icon" 
+       src="https://cdn-icons-png.flaticon.com/512/5087/5087579.png" 
+       alt="Login Icon"
+       width="80">
+
+  <h2>🔐 Welcome Back</h2>
+  <div class="sub-text">✨ Access your learning universe ✨</div>
+
+  <p style="font-size:14px; opacity:0.75; margin-bottom: 15px;">
+    Login to access your dashboard, track your progress, 
+    and continue your learning journey.
+  </p>
+
+  <input type="text" id="username" placeholder="📧 Email or Username" autocomplete="username">
+  <input type="password" id="password" placeholder="🔒 Password" autocomplete="current-password">
+
+  <button onclick="login()">➡️ Login</button>
+
+  <div id="loginMessage" class="message"></div>
+
+  <div class="register-link">
+    Don't have an account? 
+    <a href="register.html">Register here</a>
+  </div>
+</div>
+
+<!-- background decorative circles -->
+<div class="bg-circle" style="width: 300px; height: 300px; top: -80px; left: -100px;"></div>
+<div class="bg-circle" style="width: 250px; height: 250px; bottom: -60px; right: -80px;"></div>
+
+<script>
+  // Simple client-side validation (demo) — just for practice flow
+  function login() {
+    let username = document.getElementById('username').value.trim();
+    let password = document.getElementById('password').value.trim();
+    let messageDiv = document.getElementById('loginMessage');
+
+    // Basic validation
+    if (username === "" || password === "") {
+      messageDiv.innerHTML = "⚠️ Please fill in both username and password.";
+      messageDiv.className = "message error-msg";
+      return;
+    }
+
+    // Simple demo credentials (for testing/assignment showcase)
+    // You can change this or just allow any non-empty to simulate login
+    // For better UX: demo@student.com / any password, OR student / 123
+    if ((username === "student@example.com" || username === "student") && password.length >= 1) {
+      messageDiv.innerHTML = "✅ Login successful! Redirecting to Dashboard...";
+      messageDiv.className = "message success-msg";
+      
+      // Store a simple flag in sessionStorage to simulate logged in
+      sessionStorage.setItem("isLoggedIn", "true");
+      sessionStorage.setItem("loggedUser", username);
+      
+      // Redirect after 1 second to dashboard
+      setTimeout(function() {
+        window.location.href = "dashboard.html";
+      }, 1000);
+    } 
+    else if (username === "demo" && password === "demo123") {
+      // extra demo account
+      messageDiv.innerHTML = "✅ Welcome Demo User! Redirecting...";
+      messageDiv.className = "message success-msg";
+      sessionStorage.setItem("isLoggedIn", "true");
+      sessionStorage.setItem("loggedUser", username);
+      setTimeout(() => {
+        window.location.href = "dashboard.html";
+      }, 1000);
+    }
+    else {
+      messageDiv.innerHTML = "❌ Invalid credentials. Try: student@example.com (any password) or demo / demo123";
+      messageDiv.className = "message error-msg";
+    }
+  }
+
+  // Optional: If user already logged in, you could auto-redirect? Not forced for better UX
+  // But prevent any unwanted behavior.
+  window.onload = function() {
+    // Clear any leftover message
+    let msg = document.getElementById('loginMessage');
+    if(msg) msg.innerHTML = "";
+  };
+</script>
+
+</body>
+</html>

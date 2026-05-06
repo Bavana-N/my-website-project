@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Student Portal Architecture | Modular Monolithic Diagram</title>
+    <!-- Google Fonts + Font Awesome (clean icons) -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: radial-gradient(circle at 10% 20%, #0b1120, #030712);
+            font-family: 'Inter', sans-serif;
+            color: #eef5ff;
+            padding: 2rem 1.5rem;
+            line-height: 1.4;
+        }
+
+        /* main container */
+        .arch-container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        /* header / title area */
+        .hero-title {
+            text-align: center;
+            margin-bottom: 2.5rem;
+        }
+        .hero-title h1 {
+            font-size: 2.4rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #C0E0FF, #7aa9f0);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            letter-spacing: -0.5px;
+        }
+        .hero-title p {
+            color: #9bb5d4;
+            margin-top: 0.5rem;
+            font-weight: 500;
+        }
+        .badge-arch {
+            background: rgba(59,130,246,0.2);
+            backdrop-filter: blur(4px);
+            padding: 0.25rem 1rem;
+            border-radius: 40px;
+            display: inline-block;
+            font-size: 0.8rem;
+            margin-top: 0.7rem;
+            border: 1px solid rgba(255,255,255,0.15);
+        }
+
+        /* LAYOUT: two column structure (presentation + logic/storage) */
+        .arch-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+        @media (max-width: 880px) {
+            .arch-grid {
+                grid-template-columns: 1fr;
+                gap: 1.8rem;
+            }
+        }
+
+        /* glass card modules */
+        .glass-module {
+            background: rgba(15, 25, 45, 0.55);
+            backdrop-filter: blur(12px);
+            border-radius: 2rem;
+            border: 1px solid rgba(255,255,255,0.2);
+            overflow: hidden;
+            transition: transform 0.2s ease;
+            height: fit-content;
+        }
+        .glass-module:hover {
+            transform: translateY(-3px);
+            border-color: rgba(100, 160, 255, 0.4);
+        }
+        .module-header {
+            background: rgba(0, 0, 0, 0.35);
+            padding: 1rem 1.5rem;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .module-header i {
+            font-size: 1.8rem;
+            color: #6c9eff;
+        }
+        .module-header h2 {
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+        .module-body {
+            padding: 1.2rem 1.5rem 1.5rem;
+        }
+        .feature-list {
+            list-style: none;
+        }
+        .feature-list li {
+            margin-bottom: 0.9rem;
+            display: flex;
+            align-items: baseline;
+            gap: 12px;
+            font-size: 0.95rem;
+            border-bottom: 1px dashed rgba(255,255,255,0.1);
+            padding-bottom: 0.6rem;
+        }
+        .feature-list li i {
+            width: 24px;
+            color: #5f9eff;
+            font-size: 0.9rem;
+            margin-top: 2px;
+        }
+        .sub-group {
+            margin-left: 2rem;
+            margin-top: 0.5rem;
+            font-size: 0.85rem;
+            color: #cbd5e6;
+        }
+        .tag {
+            background: rgba(0,0,0,0.45);
+            border-radius: 20px;
+            padding: 0.2rem 0.8rem;
+            font-size: 0.7rem;
+            font-weight: 500;
+            display: inline-block;
+            margin-left: 8px;
+            letter-spacing: 0.3px;
+        }
+
+        /* data persistence card */
+        .storage-card {
+            background: rgba(10, 20, 35, 0.7);
+            backdrop-filter: blur(12px);
+            border-radius: 1.5rem;
+            border: 1px solid rgba(80, 140, 255, 0.3);
+            margin-top: 1rem;
+        }
+        .inline-code {
+            font-family: monospace;
+            background: #0a0f1c;
+            padding: 0.2rem 0.4rem;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            color: #b9d0ff;
+        }
+
+        /* external libraries & style row */
+        .info-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin: 2rem 0 1rem;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .tech-badge {
+            background: rgba(30, 45, 75, 0.7);
+            border-radius: 60px;
+            padding: 0.5rem 1.2rem;
+            font-size: 0.85rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            backdrop-filter: blur(4px);
+        }
+        hr {
+            border-color: rgba(255,255,255,0.1);
+            margin: 1rem 0;
+        }
+
+        /* footer note */
+        .arch-footer {
+            text-align: center;
+            margin-top: 2.5rem;
+            font-size: 0.8rem;
+            color: #7f95bb;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            padding-top: 1.8rem;
+        }
+
+        /* dashboard preview mini */
+        .dashboard-preview {
+            background: rgba(0,0,0,0.25);
+            border-radius: 1.2rem;
+            margin-top: 1rem;
+            padding: 0.8rem;
+            text-align: center;
+            font-size: 0.8rem;
+        }
+        .mini-chart-placeholder {
+            background: #0f172a;
+            border-radius: 20px;
+            height: 60px;
+            margin: 8px 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+        }
+    </style>
+</head>
+<body>
+<div class="arch-container">
+    <div class="hero-title">
+        <h1><i class="fas fa-graduation-cap" style="margin-right: 12px;"></i>STUDENT PORTAL</h1>
+        <p>modular monolithic architecture · client‑side · Web Storage API</p>
+        <div class="badge-arch"><i class="fas fa-cubes"></i> Presentation · Logic · Persistence (no backend)</div>
+    </div>
+
+    <!-- GRID: left column (presentation layer) + right column (logic + data) -->
+    <div class="arch-grid">
+        <!-- LEFT: PRESENTATION LAYER (HTML PAGES) -->
+        <div class="glass-module">
+            <div class="module-header">
+                <i class="fas fa-desktop"></i>
+                <h2>📄 Presentation Layer</h2>
+            </div>
+            <div class="module-body">
+                <p style="margin-bottom: 1rem; font-weight: 500;"><i class="fas fa-share-alt"></i> Shared navigation bar · Chart.js · SessionStorage · Glassmorphism</p>
+                <ul class="feature-list">
+                    <li><i class="fas fa-home"></i> <strong>index.html</strong> – hero + tagline, login/register CTA, floating background bubbles</li>
+                    <li><i class="fas fa-sign-in-alt"></i> <strong>login.html</strong> – username/password fields, client-side validation, sessionStorage login state, demo hint</li>
+                    <li><i class="fas fa-user-plus"></i> <strong>register.html</strong> – full name, email, password + confirm match, stores user in localStorage → redirect to login</li>
+                    <li><i class="fas fa-chart-line"></i> <strong>dashboard.html</strong> – Chart.js line chart (progress), course cards → YouTube, assessment cards → Google Form, events modal (workshops/internships), stats (modules, avg score)</li>
+                    <li><i class="fas fa-info-circle"></i> <strong>about.html</strong> – project info, features list, tech stack overview</li>
+                    <li><i class="fas fa-envelope"></i> <strong>contact.html</strong> – contact form with validation, email/phone/address cards, social links, message simulation toast</li>
+                </ul>
+                <div class="dashboard-preview">
+                    <i class="fas fa-chart-simple"></i> <strong>Dashboard insights:</strong> Chart.js weekly progress · modal events · external resources (YouTube, Google Forms) open in new tab
+                    <div class="mini-chart-placeholder">
+                        <i class="fas fa-chart-line"></i> <span style="font-size:0.7rem;">[Line chart: modules completed]</span> <i class="fas fa-arrow-right"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- RIGHT: LOGIC LAYER + MODULES -->
+        <div class="glass-module">
+            <div class="module-header">
+                <i class="fas fa-brain"></i>
+                <h2>⚙️ Logic Layer & Managers</h2>
+            </div>
+            <div class="module-body">
+                <p style="margin-bottom: 12px;"><i class="fas fa-code"></i> Vanilla JavaScript · per page logic + shared functions · no backend frameworks</p>
+                <ul class="feature-list">
+                    <li><i class="fas fa-user-lock"></i> <strong>Authentication Manager</strong> – login() / register() / logout() · read/write sessionStorage + localStorage · session state: isLoggedIn, loggedUser, loginTime · protected route guard (dashboard redirect) · checkAuth() on page load</li>
+                    <li><i class="fas fa-chart-pie"></i> <strong>Dashboard Manager</strong> – initChart() (Chart.js line graph – weekly progress) · progressBtn & eventsBtn modals · external resources (YouTube cards, Google Form iframe/new tab)</li>
+                    <li><i class="fas fa-calendar-alt"></i> <strong>Event Module</strong> – Workshops · Internship fair · Cultural fest · modal popup with dynamic event listing · static curated event data (no server)</li>
+                    <li><i class="fas fa-check-circle"></i> <strong>Form Handler</strong> – validateInput() · email regex · password match & min length (6) · escapeHtml() sanitization · redirect after successful register/login</li>
+                    <li><i class="fas fa-bell"></i> <strong>Notification System</strong> – success/error messages inline · auto-dismiss after timeout · color-coded (error red / success green)</li>
+                    <li><i class="fas fa-sync-alt"></i> <strong>Page Initialization & Routing</strong> – DOMContentLoaded listener → checkAuth() for protected pages → load session user data → addFloatingOrbs() UI enhancements</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- SECOND ROW: Data Persistence + Style/Integration + external integrations -->
+    <div class="arch-grid" style="margin-top: 0;">
+        <!-- Web Storage & Persistence -->
+        <div class="glass-module">
+            <div class="module-header">
+                <i class="fas fa-database"></i>
+                <h2>💾 Data Persistence – Web Storage API</h2>
+            </div>
+            <div class="module-body">
+                <p><i class="fas fa-server"></i> Browser Storage – pure client-side persistence · no server, no database</p>
+                <div style="background: rgba(0,0,0,0.3); border-radius: 1rem; padding: 1rem; margin: 1rem 0;">
+                    <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+                        <div><i class="fas fa-hourglass-half"></i> <strong>sessionStorage</strong><br><span class="inline-code">isLoggedIn, loggedUser, loginTime</span><br>survives page reload (tab session)</div>
+                        <div><i class="fas fa-database"></i> <strong>localStorage</strong><br><span class="inline-code">registeredUser_[email]</span><br>JSON: { name, email, registeredOn } · persistent across browser close</div>
+                    </div>
+                </div>
+                <div class="storage-card" style="padding: 0.8rem; margin-top: 5px;">
+                    <i class="fas fa-exchange-alt"></i> <strong>Read/Write operations:</strong> <span class="inline-code">getItem() / setItem() / removeItem()</span> · session & local managed by Authentication Manager + optional demo users.
+                    <div class="sub-group"><i class="fas fa-shield-alt"></i> Protected routes: dashboard only accessible if <span class="inline-code">isLoggedIn === true</span> → else redirect to login.</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Style & Integration + external libraries / chart.js -->
+        <div class="glass-module">
+            <div class="module-header">
+                <i class="fas fa-palette"></i>
+                <h2>🎨 Style & Integration Layer</h2>
+            </div>
+            <div class="module-body">
+                <p><strong>style.css</strong> – unified glassmorphism design system / responsive</p>
+                <ul class="feature-list">
+                    <li><i class="fas fa-blur"></i> <strong>Design Tokens:</strong> nav · card · form · toast · badge · backdrop-filter blur, gradient backgrounds, consistent border-radius & shadows, button hover effects (scale transitions)</li>
+                    <li><i class="fas fa-mobile-alt"></i> <strong>Responsive & Animations:</strong> @media breakpoints (mobile/tablet) · fadeIn keyframes, transform scale · sticky nav bar + glass effect · print styles (A4 friendly)</li>
+                    <li><i class="fab fa-js"></i> <strong>External Libraries:</strong> Chart.js CDN (v4.4.0) · Google Fonts (Poppins/Inter) · Flaticon / Font Awesome icons CDN</li>
+                </ul>
+                <div class="info-row" style="margin: 0.5rem 0 0;">
+                    <span class="tech-badge"><i class="fab fa-youtube"></i> YouTube embed cards</span>
+                    <span class="tech-badge"><i class="fab fa-google"></i> Google Forms integration</span>
+                    <span class="tech-badge"><i class="fas fa-chart-line"></i> Chart.js analytics</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ADDITIONAL DETAILS: Auth flow + Events + Protected Route -->
+    <div class="glass-module" style="margin-top: 1rem;">
+        <div class="module-header">
+            <i class="fas fa-route"></i>
+            <h2>🔐 Authentication Flow & Protected Routes</h2>
+        </div>
+        <div class="module-body">
+            <div style="display: flex; flex-wrap: wrap; gap: 1.5rem; justify-content: space-between;">
+                <div style="flex:1; min-width: 200px;">
+                    <i class="fas fa-sign-in-alt"></i> <strong>Login simulation</strong><br>
+                    <span class="inline-code">login(username, password)</span> → checks localStorage registered users, sets sessionStorage: isLoggedIn=true, stores user. Dashboard redirect.
+                </div>
+                <div style="flex:1; min-width: 200px;">
+                    <i class="fas fa-registered"></i> <strong>Register flow</strong><br>
+                    Stores in localStorage under key <span class="inline-code">registeredUser_{email}</span>. Auto redirect to login page after success.
+                </div>
+                <div style="flex:1; min-width: 200px;">
+                    <i class="fas fa-shield-alt"></i> <strong>Route guard</strong><br>
+                    On <span class="inline-code">dashboard.html</span> load → checkAuth() verifies sessionStorage. If not logged in → redirect to login.html. Same for any protected page.
+                </div>
+            </div>
+            <hr>
+            <div class="info-row" style="justify-content: flex-start;">
+                <div><i class="fas fa-calendar-week"></i> <strong>Event Module data (static):</strong> workshops, internship fair, cultural fest – modal popup with dynamic listing</div>
+                <div><i class="fas fa-chalkboard-user"></i> <strong>Demo credentials hint:</strong> login.html shows test@student.com / demo123</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- EXTERNAL RESOURCES INTEGRATION (YOUTUBE + GOOGLE FORMS) -->
+    <div class="arch-grid" style="margin-top: 1rem;">
+        <div class="glass-module">
+            <div class="module-header">
+                <i class="fas fa-external-link-alt"></i>
+                <h2>🌐 External Integrations (Dashboard)</h2>
+            </div>
+            <div class="module-body">
+                <p><strong>Course cards → YouTube</strong> : Each course card links to curated YouTube playlists (new tab). <br>
+                <strong>Assessment cards → Google Form</strong> : Embedded or direct link to Google Forms for quizzes / assignments.</p>
+                <div class="sub-group"><i class="fas fa-chart-simple"></i> Stats shown in dashboard: modules completed, average score, quizzes taken – all managed via session/localStorage and updated by user progress simulation.</div>
+            </div>
+        </div>
+        <div class="glass-module">
+            <div class="module-header">
+                <i class="fas fa-toast"></i>
+                <h2>🍞 Notification & UI Enhancements</h2>
+            </div>
+            <div class="module-body">
+                <ul class="feature-list">
+                    <li><i class="fas fa-comment-dots"></i> <strong>Toast system:</strong> auto-dismiss after 3 sec, color-coded (green for success, red for error). Used in login, register, contact form simulation.</li>
+                    <li><i class="fas fa-bubble"></i> <strong>Floating orbs animation</strong> added via <span class="inline-code">addFloatingOrbs()</span> on page load – dynamic glassmorphic background circles.</li>
+                    <li><i class="fas fa-chart-line"></i> <strong>Chart.js line graph</strong> – weekly progress (mock data) showing study hours / quiz scores evolution.</li>
+                </ul>
+                <div class="dashboard-preview" style="background: #0f172a;">
+                    <i class="fas fa-chart-line"></i> <strong>Example Chart.js dataset</strong> – week1..week4 progress + modular stats update.
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ARCHITECTURE SUMMARY + CLIENT-SIDE ROUTING -->
+    <div class="arch-footer">
+        <p><i class="fas fa-cube"></i> <strong>ARCHITECTURE TYPE: MODULAR MONOLITHIC (CLIENT-SIDE)</strong><br>
+        All pages share same design system & navigation · No backend / No database server · Client-side routing via static HTML links · Data fully managed by Web Storage API (session + local)<br>
+        Chart.js for analytics · External integrations (YouTube, Google Forms) open in new tab · Session state persists per tab · localStorage stores registered users permanently.</p>
+        <div style="margin-top: 12px;">
+            <span class="tech-badge"><i class="fas fa-check-circle"></i> Protected route guard</span>
+            <span class="tech-badge"><i class="fas fa-database"></i> localStorage + sessionStorage</span>
+            <span class="tech-badge"><i class="fas fa-chart-line"></i> Chart.js v4.4</span>
+            <span class="tech-badge"><i class="fas fa-glass-cheers"></i> Glassmorphism UI</span>
+        </div>
+        <p style="margin-top: 1rem; font-size: 0.75rem;">📌 Student portal demo structure: index (landing) | login | register | dashboard (chart, events modal, youtube/form cards) | about | contact — all interconnected via client-side logic.</p>
+    </div>
+</div>
+
+<!-- small interactive simulation? not required but adds architectural proof-of-concept: diagram remains static but shows the exact modules from your spec -->
+<script>
+    // purely visual enhancement: floating orbs generation to match the spec's "addFloatingOrbs()"
+    (function addFloatingOrbs() {
+        const orbCount = 8;
+        for (let i = 0; i < orbCount; i++) {
+            const orb = document.createElement('div');
+            orb.classList.add('orb');
+            const size = Math.floor(Math.random() * 280) + 100;
+            orb.style.width = `${size}px`;
+            orb.style.height = `${size}px`;
+            orb.style.left = `${Math.random() * 90}%`;
+            orb.style.top = `${Math.random() * 100}%`;
+            orb.style.animationDelay = `${Math.random() * 10}s`;
+            orb.style.animationDuration = `${15 + Math.random() * 15}s`;
+            document.body.appendChild(orb);
+        }
+    })();
+
+    // optional: micro interaction to simulate dashboard notification (not altering main diagram)
+    // just to reflect that notification system exists, console log greeting
+    console.log("Student Portal Architecture — Modular Monolithic (Client-side) | SessionStorage + LocalStorage | Chart.js ready");
+    // Also to showcase that the authManager concept works, but this is a diagrammatic view.
+    // Additional note: demo credentials hint and form validation logic is part of modules described.
+</script>
+
+<!-- design note: the page represents the complete student portal structure 
+     as per the provided screenshots: presentation layer (HTML files), logic layer with authentication/dashboard/event/form/notification,
+     data persistence via web storage, style/glassmorphism, chart.js and external resources -->
+</body>
+</html>
